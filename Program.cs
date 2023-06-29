@@ -87,7 +87,7 @@ app.MapGet("/employee", (ClaimsPrincipal user) =>
 }
 ).RequireAuthorization("Employee");
 
-app.MapGet("/index", () =>
+app.MapGet("/", () =>
 {
     var filePath = Path.Combine(builder.Environment.ContentRootPath, "views/index.html");
     return Results.File(filePath, "text/html");
