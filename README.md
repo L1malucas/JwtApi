@@ -7,7 +7,7 @@
   </head>
   <body>
     <h1>URL do Serviço</h1>
-      https://limajwtapi.azurewebsites.net/
+      https://minimalapaijwt.azurewebsites.net/
     
   <h1>Documentação do Código</h1>
   Adicionando Políticas de Autorização   
