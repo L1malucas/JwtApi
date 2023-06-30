@@ -1,0 +1,10 @@
+{
+  "content": {
+    "O que é a Minimal API": "A Minimal API é um recurso do .NET que permite criar APIs de forma mais simples e concisa, utilizando uma sintaxe mais enxuta e eficiente. Ela proporciona um desenvolvimento rápido e fácil, reduzindo a quantidade de código necessária para criar uma API.",
+    "Autenticação via JWT e Perfis de Usuário": "Nossa API utiliza autenticação via JWT (JSON Web Token) para garantir a segurança das informações. Cada usuário possui um perfil associado, que define suas permissões e acessos dentro do sistema. Isso permite um controle granular sobre as funcionalidades disponíveis para cada tipo de usuário.",
+    "documentação": "Acesse /docs para acessar a documentação",
+    "Sobre o Desenvolvedor Lucas Lima": "Lucas Lima é um desenvolvedor de software apaixonado por criar soluções inovadoras e eficientes. Ele é responsável pelo desenvolvimento e manutenção deste projeto.",
+    "Confira o repositório do projeto no GitHub:": "https://github.com/L1malucas/JwtApi",
+    "Conecte-se com Lucas Lima no LinkedIn:": "https://www.linkedin.com/in/limalucasdev"
+  }
+}

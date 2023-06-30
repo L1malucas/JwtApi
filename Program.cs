@@ -96,14 +96,18 @@ app.MapGet("/employee", (ClaimsPrincipal user) =>
 
 app.MapGet("/docs", () =>
 {
-    var filePath = Path.Combine(builder.Environment.ContentRootPath, "views/docs.html");
-    return Results.File(filePath, "text/html");
+    var filePath = Path.Combine(builder.Environment.ContentRootPath, "views/docs.json");
+    var jsonContent = File.ReadAllText(filePath);
+
+    return Results.Json(jsonContent);
 });
 
 
 app.MapGet("/", () =>
 {
-    var filePath = Path.Combine(builder.Environment.ContentRootPath, "views/home.html");
-    return Results.File(filePath, "text/html");
+    var filePath = Path.Combine(builder.Environment.ContentRootPath, "views/home.json");
+    var jsonContent = File.ReadAllText(filePath);
+
+    return Results.Json(jsonContent);
 });
 app.Run();
