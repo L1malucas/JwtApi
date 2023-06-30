@@ -57,8 +57,8 @@ app.MapPost("/login", (User model) =>
     user.Password = "";
     return Results.Ok(new
     {
-        user = user,
-        token = token
+        user,
+        token
     });
 
 });
@@ -78,12 +78,27 @@ app.MapGet("/authenticated", (ClaimsPrincipal user) =>
 //  acess by policy admin and employee, with require authorization
 app.MapGet("/manager", (ClaimsPrincipal user) =>
 {
-    Results.Ok(new
+    if (user.Identity.IsAuthenticated)
     {
-        message = $"Authenticated as {user.Identity.Name}"
-    });
-}
-).RequireAuthorization("Admin");
+        var authenticatedResponse = new
+        {
+            message = $"autenticado como {user.Identity.Name}"
+        };
+
+        return Results.Json(authenticatedResponse);
+    }
+    else
+    {
+        var forbidden = new
+        {
+            message = "nao autorizado"
+        };
+
+        return Results.Json(forbidden);
+
+    }
+}).RequireAuthorization("Admin");
+
 
 app.MapGet("/employee", (ClaimsPrincipal user) =>
 {
