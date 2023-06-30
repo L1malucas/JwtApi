@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
-// secret key config
+// secret key config as byte array
 var key = Encoding.ASCII.GetBytes(Settings.Secret);
+
 // authentication settings
 builder.Services.AddAuthentication(x =>
 {
@@ -28,6 +29,7 @@ builder.Services.AddAuthentication(x =>
         ValidateAudience = false,
     };
 });
+
 // create policy of authorization (roles manager and employee)
 builder.Services.AddAuthorization(options =>
 {
@@ -39,6 +41,7 @@ var app = builder.Build();
 // must be this oreder! first looks for authentication and then looks for authorization
 app.UseAuthentication();
 app.UseAuthorization();
+
 // user authentication
 app.MapPost("/login", (User model) =>
 {
@@ -46,9 +49,11 @@ app.MapPost("/login", (User model) =>
     if (user == null)
         return Results.NotFound(new
         {
-            MessageProcessingHandler = "Usuário ou senha inválidos!"
+            message = "Usuário ou senha inválidos!"
         });
+    // if everything is right, generate token
     var token = TokenService.GenerateToken(user);
+    // hide password
     user.Password = "";
     return Results.Ok(new
     {
@@ -57,17 +62,19 @@ app.MapPost("/login", (User model) =>
     });
 
 });
+
 // anonymous method
-app.MapGet("/anonymous", () => { Results.Ok("anonymous"); });
+app.MapGet("/anonymous", () => { Results.Ok("anonymous"); }).AllowAnonymous();
 
 // verify authenticated user
 app.MapGet("/authenticated", (ClaimsPrincipal user) =>
 {
     Results.Ok(new
     {
-        MessageProcessingHandler = $"Authenticated as {user.Identity.Name}"
+        message = $"Authenticated as {user.Identity.Name}"
     });
 }).RequireAuthorization();
+
 //  acess by policy admin and employee, with require authorization
 app.MapGet("/manager", (ClaimsPrincipal user) =>
 {
@@ -87,10 +94,16 @@ app.MapGet("/employee", (ClaimsPrincipal user) =>
 }
 ).RequireAuthorization("Employee");
 
-app.MapGet("/", () =>
+app.MapGet("/docs", () =>
 {
-    var filePath = Path.Combine(builder.Environment.ContentRootPath, "views/index.html");
+    var filePath = Path.Combine(builder.Environment.ContentRootPath, "views/docs.html");
     return Results.File(filePath, "text/html");
 });
 
+
+app.MapGet("/", () =>
+{
+    var filePath = Path.Combine(builder.Environment.ContentRootPath, "views/home.html");
+    return Results.File(filePath, "text/html");
+});
 app.Run();
