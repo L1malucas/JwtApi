@@ -71,57 +71,61 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: _userNameFormController,
-                  keyboardType: TextInputType.name,
-                  decoration: InputDecoration(
-                    hintText: "Digite seu nome",
-                    border: const OutlineInputBorder(),
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Theme.of(context).primaryColor),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 30),
-                TextFormField(
-                  controller: _passwordFormController,
-                  keyboardType: TextInputType.name,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: "Digite sua senha",
-                    border: const OutlineInputBorder(),
-                    filled: true,
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Theme.of(context).primaryColor),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                          color: Theme.of(context).colorScheme.secondary),
-                      borderRadius: BorderRadius.circular(4),
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Center(
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: _userNameFormController,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      hintText: "Digite seu nome",
+                      border: const OutlineInputBorder(),
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.secondary),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 30),
-                ElevatedButton(
-                  onPressed: _handleLogin,
-                  child: const Text("LOGIN"),
-                ),
-              ],
+                  const SizedBox(height: 30),
+                  TextFormField(
+                    controller: _passwordFormController,
+                    keyboardType: TextInputType.name,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: "Digite sua senha",
+                      border: const OutlineInputBorder(),
+                      filled: true,
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Theme.of(context).primaryColor),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.secondary),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  ElevatedButton(
+                    onPressed: _handleLogin,
+                    child: const Text("LOGIN"),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
