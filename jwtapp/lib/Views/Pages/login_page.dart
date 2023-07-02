@@ -56,8 +56,11 @@ class _LoginPageState extends State<LoginPage> {
         final role = loginData['role'];
 
         print('Token: $token');
+        print("\n");
         print('ID: $id');
+        print("\n");
         print('Role: $role');
+        print("\n");
 
         // Faça algo com o token, id e role, como navegar para a próxima tela ou salvar em um estado global.
       } catch (e) {

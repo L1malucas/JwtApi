@@ -78,27 +78,12 @@ app.MapGet("/authenticated", (ClaimsPrincipal user) =>
 //  acess by policy admin and employee, with require authorization
 app.MapGet("/manager", (ClaimsPrincipal user) =>
 {
-    if (user.Identity.IsAuthenticated)
+    Results.Ok(new
     {
-        var authenticatedResponse = new
-        {
-            message = $"autenticado como {user.Identity.Name}"
-        };
-
-        return Results.Json(authenticatedResponse);
-    }
-    else
-    {
-        var forbidden = new
-        {
-            message = "nao autorizado"
-        };
-
-        return Results.Json(forbidden);
-
-    }
-}).RequireAuthorization("Admin");
-
+        message = $"Authenticated as {user.Identity.Name}"
+    });
+}
+).RequireAuthorization("Admin");
 
 app.MapGet("/employee", (ClaimsPrincipal user) =>
 {
