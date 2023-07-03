@@ -8,7 +8,7 @@ public static class UserRepository
     {
         var users = new List<User>
         {
-            new User { Id = 1, Username = "batman", Password = "batman", Role = "manager" },
+            new User { Id = 1, Username = "batman", Password = "batman", Role = "admin" },
             new User { Id = 2, Username = "robin", Password = "robin", Role = "employee" },
         };
 

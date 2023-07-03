@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using System.Text;
 using jwtApi;
+using jwtApi.Middleware;
 using jwtApi.Models;
 using jwtApi.Repositories;
 using jwtApi.Services;
@@ -33,7 +34,7 @@ builder.Services.AddAuthentication(x =>
 // create policy of authorization (roles manager and employee)
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("Admin", policy => policy.RequireRole("manager"));
+    options.AddPolicy("Admin", policy => policy.RequireRole("admin"));
     options.AddPolicy("Employee", policy => policy.RequireRole("employee"));
 });
 var app = builder.Build();
@@ -41,6 +42,8 @@ var app = builder.Build();
 // must be this oreder! first looks for authentication and then looks for authorization
 app.UseAuthentication();
 app.UseAuthorization();
+// add middleware
+// app.UseJwtMiddleware();
 
 // user authentication
 app.MapPost("/login", (User model) =>
@@ -76,7 +79,7 @@ app.MapGet("/authenticated", (ClaimsPrincipal user) =>
 }).RequireAuthorization();
 
 //  acess by policy admin and employee, with require authorization
-app.MapGet("/manager", (ClaimsPrincipal user) =>
+app.MapGet("/admin", (ClaimsPrincipal user) =>
 {
     Results.Ok(new
     {
