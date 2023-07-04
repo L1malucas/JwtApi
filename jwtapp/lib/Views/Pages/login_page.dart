@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:jwtapp/Views/Pages/validate_routes_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -18,7 +19,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<Map<String, dynamic>> loginUser(
       String username, String password) async {
-        
     username = username.trim();
     password = password.trim();
     const apiUrl = 'https://minimalapijwt.azurewebsites.net/login';
@@ -72,8 +72,13 @@ class _LoginPageState extends State<LoginPage> {
       print("\n");
       print(
           'usernamecontroller: ${_userNameFormController.text} \n usernamecontroller: ${_passwordFormController.text}');
-
-      // Faça algo com o token, id e role, como navegar para a próxima tela ou salvar em um estado global.
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ValidateRoutesPage(
+                  token: token,
+                )),
+      );
     } catch (e) {
       print('Error: $e');
       // Trate o erro de login, como exibindo uma mensagem de erro.
@@ -87,60 +92,62 @@ class _LoginPageState extends State<LoginPage> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Center(
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextFormField(
-                      controller: _userNameFormController,
-                      keyboardType: TextInputType.name,
-                      decoration: InputDecoration(
-                        hintText: "Digite seu nome",
-                        border: const OutlineInputBorder(),
-                        filled: true,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Theme.of(context).primaryColor),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 30),
-                    TextFormField(
-                      controller: _passwordFormController,
-                      keyboardType: TextInputType.name,
-                      // obscureText: true,
-                      decoration: InputDecoration(
-                        hintText: "Digite sua senha",
-                        border: const OutlineInputBorder(),
-                        filled: true,
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Theme.of(context).primaryColor),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.secondary),
-                          borderRadius: BorderRadius.circular(4),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Center(
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextFormField(
+                        controller: _userNameFormController,
+                        keyboardType: TextInputType.name,
+                        decoration: InputDecoration(
+                          hintText: "Digite seu nome",
+                          border: const OutlineInputBorder(),
+                          filled: true,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.secondary),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 30),
-                    ElevatedButton(
-                      onPressed: _handleLogin,
-                      child: const Text("LOGIN"),
-                    ),
-                  ],
+                      const SizedBox(height: 30),
+                      TextFormField(
+                        controller: _passwordFormController,
+                        keyboardType: TextInputType.name,
+                        // obscureText: true,
+                        decoration: InputDecoration(
+                          hintText: "Digite sua senha",
+                          border: const OutlineInputBorder(),
+                          filled: true,
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).primaryColor),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Theme.of(context).colorScheme.secondary),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      ElevatedButton(
+                        onPressed: _handleLogin,
+                        child: const Text("LOGIN"),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
