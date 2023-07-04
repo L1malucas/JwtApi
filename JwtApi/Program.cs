@@ -63,7 +63,6 @@ app.MapPost("/login", (User model) =>
         user,
         token
     });
-
 });
 
 // anonymous method
