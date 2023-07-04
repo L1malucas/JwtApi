@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
 class ValidateRoutesPage extends StatefulWidget {
@@ -39,13 +41,13 @@ class _ValidateRoutesPageState extends State<ValidateRoutesPage> {
                   ),
                 ),
                 const SizedBox(height: 40),
-                inputWidget('Anony'),
+                inputWidget('Anony', testAnonymousRoute),
                 const SizedBox(height: 40),
-                inputWidget('Auth'),
+                inputWidget('Auth', testAuthenticatedRoute),
                 const SizedBox(height: 40),
-                inputWidget('Admin'),
+                inputWidget('Admin', testAdminRoute),
                 const SizedBox(height: 40),
-                inputWidget('Employee'),
+                inputWidget('Employee', testEmployeeRoute),
                 const SizedBox(height: 40),
               ],
             ),
@@ -55,7 +57,7 @@ class _ValidateRoutesPageState extends State<ValidateRoutesPage> {
     );
   }
 
-  Widget inputWidget(String route) {
+  Widget inputWidget(String route, Function httpMethod) {
     return SizedBox(
       width: double.infinity,
       height: 100,
@@ -64,16 +66,84 @@ class _ValidateRoutesPageState extends State<ValidateRoutesPage> {
         children: [
           Expanded(
             child: TextField(
+              textAlign: TextAlign.justify,
               maxLines: 25,
               controller: _tokenController,
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              httpMethod;
+            },
             child: Text(route),
           ),
         ],
       ),
     );
+  }
+
+  Future<void> testAnonymousRoute() async {
+    print("ENTROU NO METODO");
+    final response = await http.get(
+      Uri.parse('http://your-api-url/anonymous'),
+      headers: {
+        'Authorization': 'Bearer ${_tokenController.text}',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print(data);
+    } else {
+      print('Erro: ${response.statusCode}');
+    }
+  }
+
+  Future<void> testAuthenticatedRoute() async {
+    final response = await http.get(
+      Uri.parse('http://your-api-url/authenticated'),
+      headers: {
+        'Authorization': 'Bearer ${_tokenController.text}',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print(data); // Exibe o resultado da rota "/authenticated"
+    } else {
+      print('Erro: ${response.statusCode}');
+    }
+  }
+
+  Future<void> testAdminRoute() async {
+    final response = await http.get(
+      Uri.parse('http://your-api-url/admin'),
+      headers: {
+        'Authorization': 'Bearer ${_tokenController.text}',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print(data); // Exibe o resultado da rota "/admin"
+    } else {
+      print('Erro: ${response.statusCode}');
+    }
+  }
+
+  Future<void> testEmployeeRoute() async {
+    final response = await http.get(
+      Uri.parse('http://your-api-url/employee'),
+      headers: {
+        'Authorization': 'Bearer ${_tokenController.text}',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      print(data); // Exibe o resultado da rota "/employee"
+    } else {
+      print('Erro: ${response.statusCode}');
+    }
   }
 }
