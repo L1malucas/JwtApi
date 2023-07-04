@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.6
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:
