@@ -1,3 +1,3 @@
 {
-  "dotnet.defaultSolution": "JwtApi/jwtApi.sln"
+  "dotnet.defaultSolution": "JwtApi\\jwtApi.sln"
 }

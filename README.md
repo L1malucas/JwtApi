@@ -1,15 +1,6 @@
 # jwtApi
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
 
-  </head>
-  <body>
-    <h1>URL do Serviço</h1>
-      https://minimalapijwt.azurewebsites.net/
-    
-  <h1>Documentação do Código</h1>
+  ## Documentação da Minimal API
   Adicionando Políticas de Autorização   
     
     builder.Services.AddAuthorization(options => {
