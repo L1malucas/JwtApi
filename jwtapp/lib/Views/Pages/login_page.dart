@@ -18,22 +18,23 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<Map<String, dynamic>> loginUser(
       String username, String password) async {
+        
+    username = username.trim();
+    password = password.trim();
     const apiUrl = 'https://minimalapijwt.azurewebsites.net/login';
-    const localhostUrl = 'http://192.168.1.103:5127/login';
-    print("LOGINUSER");
 
+    print("LOGINUSER");
     final response = await http.post(
-      Uri.parse(localhostUrl),
-      body: {
+      Uri.parse(apiUrl),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({
         'username': username,
         'password': password,
-      },
+      }),
     );
-    print("LOGINUSER");
-
+    print("ENVIA POST");
     if (response.statusCode == 200) {
       print("STATUSCODE200");
-
       final responseData = json.decode(response.body);
       final token = responseData['token'];
       final id = responseData['user']['id'];
