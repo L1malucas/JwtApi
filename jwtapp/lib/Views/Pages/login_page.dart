@@ -22,7 +22,7 @@ class _LoginPageState extends State<LoginPage> {
       String username, String password) async {
     username = username.trim();
     password = password.trim();
-    const apiUrl = 'https://minimalapijwt.azurewebsites.net/login';
+  const apiUrl = 'https://minimalapijwt.azurewebsites.net/login';
 
     print("LOGINUSER");
     final response = await http.post(

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print, use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
@@ -11,6 +13,7 @@ class ValidateRoutesPage extends StatefulWidget {
 
 class _ValidateRoutesPageState extends State<ValidateRoutesPage> {
   final TextEditingController _tokenController = TextEditingController();
+  static const apiUrl = 'https://minimalapijwt.azurewebsites.net';
 
   @override
   void initState() {
@@ -30,26 +33,45 @@ class _ValidateRoutesPageState extends State<ValidateRoutesPage> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(32.0),
-            child: Column(
-              children: [
-                const Center(
-                  child: Text(
-                    'Teste das rotas',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Column(
+                children: [
+                  const Center(
+                    child: Text(
+                      'Teste das rotas',
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 40),
-                inputWidget('Anony', testAnonymousRoute),
-                const SizedBox(height: 40),
-                inputWidget('Auth', testAuthenticatedRoute),
-                const SizedBox(height: 40),
-                inputWidget('Admin', testAdminRoute),
-                const SizedBox(height: 40),
-                inputWidget('Employee', testEmployeeRoute),
-                const SizedBox(height: 40),
-              ],
+                  const SizedBox(height: 12),
+                  inputWidget(),
+                  ElevatedButton(
+                    onPressed: () async => testAnonymousRoute(),
+                    child: const Text('Anonymous'),
+                  ),
+                  const SizedBox(height: 12),
+                  inputWidget(),
+                  ElevatedButton(
+                    onPressed: () async => testAuthRoute(),
+                    child: const Text('Authenticated'),
+                  ),
+                  const SizedBox(height: 12),
+                  inputWidget(),
+                  ElevatedButton(
+                    onPressed: () async => testAdminRoute(),
+                    child: const Text('Admin'),
+                  ),
+                  const SizedBox(height: 12),
+                  inputWidget(),
+                  ElevatedButton(
+                    onPressed: () async => testEmployeeRoute(),
+                    child: const Text('Employee'),
+                  ),
+                  const SizedBox(height: 12),
+                ],
+              ),
             ),
           ),
         ),
@@ -57,25 +79,45 @@ class _ValidateRoutesPageState extends State<ValidateRoutesPage> {
     );
   }
 
-  Widget inputWidget(String route, Function httpMethod) {
+  Widget inputWidget() {
     return SizedBox(
       width: double.infinity,
-      height: 100,
-      child: Row(
+      height: 130,
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
             child: TextField(
+              style: const TextStyle(fontSize: 12),
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                // contentPadding: EdgeInsets.symmetric(vertical: 40),
+              ),
               textAlign: TextAlign.justify,
-              maxLines: 25,
+              maxLines: 20,
               controller: _tokenController,
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              httpMethod;
-            },
-            child: Text(route),
+        ],
+      ),
+    );
+  }
+
+  Future dialog(int statusCode) {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Resposta da request'),
+        content: Text(
+          'Status Code: $statusCode',
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
           ),
         ],
       ),
@@ -85,65 +127,91 @@ class _ValidateRoutesPageState extends State<ValidateRoutesPage> {
   Future<void> testAnonymousRoute() async {
     print("ENTROU NO METODO");
     final response = await http.get(
-      Uri.parse('http://your-api-url/anonymous'),
+      Uri.parse('$apiUrl/anonymous'),
       headers: {
         'Authorization': 'Bearer ${_tokenController.text}',
       },
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      print(data);
+      if (response.body.isNotEmpty) {
+        final data = jsonDecode(response.body);
+        print(data);
+      } else {
+        print('Resposta vazia');
+        dialog(response.statusCode);
+      }
     } else {
       print('Erro: ${response.statusCode}');
+      dialog(response.statusCode);
     }
   }
 
-  Future<void> testAuthenticatedRoute() async {
+  Future<void> testAuthRoute() async {
+    print("ENTROU NO METODO");
     final response = await http.get(
-      Uri.parse('http://your-api-url/authenticated'),
+      Uri.parse('$apiUrl/authenticated'),
       headers: {
         'Authorization': 'Bearer ${_tokenController.text}',
       },
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      print(data); // Exibe o resultado da rota "/authenticated"
+      if (response.body.isNotEmpty) {
+        final data = jsonDecode(response.body);
+        print(data);
+      } else {
+        print('Resposta vazia');
+        dialog(response.statusCode);
+      }
     } else {
       print('Erro: ${response.statusCode}');
+      dialog(response.statusCode);
     }
   }
 
   Future<void> testAdminRoute() async {
+    print("ENTROU NO METODO");
     final response = await http.get(
-      Uri.parse('http://your-api-url/admin'),
+      Uri.parse('$apiUrl/admin'),
       headers: {
         'Authorization': 'Bearer ${_tokenController.text}',
       },
     );
 
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      print(data); // Exibe o resultado da rota "/admin"
+      if (response.body.isNotEmpty) {
+        final data = jsonDecode(response.body);
+        print(data);
+      } else {
+        print('Resposta vazia');
+        dialog(response.statusCode);
+      }
     } else {
       print('Erro: ${response.statusCode}');
+      dialog(response.statusCode);
     }
   }
 
   Future<void> testEmployeeRoute() async {
+    print("ENTROU NO METODO");
     final response = await http.get(
-      Uri.parse('http://your-api-url/employee'),
+      Uri.parse('$apiUrl/employee'),
       headers: {
         'Authorization': 'Bearer ${_tokenController.text}',
       },
     );
-
     if (response.statusCode == 200) {
-      final data = jsonDecode(response.body);
-      print(data); // Exibe o resultado da rota "/employee"
+      if (response.body.isNotEmpty) {
+        final data = jsonDecode(response.body);
+        print(data);
+      } else {
+        print('Resposta vazia');
+        dialog(response.statusCode);
+      }
     } else {
       print('Erro: ${response.statusCode}');
+      dialog(response.statusCode);
     }
   }
 }
