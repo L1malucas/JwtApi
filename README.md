@@ -8,8 +8,8 @@ Esta api tem propóstio de auxiliar desesenvolvedores que estejam estudando: aut
 
 ## Ferramentas
 
-- [Flutter](https://flutter.dev/) - Framework mobile multiplataforma, construído com Dart.
-- [.NET](https://dotnet.microsoft.com/pt-br/download) - Gratuito. Multiplataforma. Código aberto.
+- [Flutter 3.10](https://flutter.dev/) - Framework mobile multiplataforma, construído com Dart.
+- [.NET 7.0.8](https://dotnet.microsoft.com/pt-br/download) - Gratuito. Multiplataforma. Código aberto.
 - [JWT](https://jwt.io/) - Padrão da Internet para a criação de dados com assinatura opcional e/ou criptografia.
 
 #### Setup da API
