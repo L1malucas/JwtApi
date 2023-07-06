@@ -198,9 +198,9 @@ Checagem de Autenticação:
       }
     }
 
-  Todos demais metódos funcionam da mesma forma, alterando apenas a rota, altere o que deseja exibir ao usuário ou navegar para outra tela.
+Todos demais metódos funcionam da mesma forma, alterando apenas a rota, altere o que deseja exibir ao usuário ou navegar para outra tela.
 
-  Na aplicação é exibido uma caixa de diálogo com o status code recebido:
+Na aplicação é exibido uma caixa de diálogo com o status code recebido:
 
     Future dialog(int statusCode) {
       return showDialog(
@@ -222,6 +222,7 @@ Checagem de Autenticação:
         ),
       );
     }
+
 ## Desenvolvimento
 
 #### Quer contribuir? Ótimo!
