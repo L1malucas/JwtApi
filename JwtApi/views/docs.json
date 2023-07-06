@@ -1,11 +1,15 @@
 {
-  "content": {
-    "Adicionando Políticas de Autorização": "builder.Services.AddAuthorization(options => {\r\n    options.AddPolicy(\"Admin\", policy => policy.RequireRole(\"manager\"));\r\n    options.AddPolicy(\"Employee\", policy => policy.RequireRole(\"employee\"));\r\n  });",
-    "Construindo o Aplicativo": "var app = builder.Build();",
-    "Configurando Autenticação e Autorização": "app.UseAuthentication();\r\n  app.UseAuthorization();",
-    "Autenticação do Usuário": "app.MapPost(\"/login\", (User model) => {\r\n    // Implemente a lógica de autenticação do usuário aqui\r\n  });",
-    "Método Anônimo": "app.MapGet(\"/anonymous\", () => {\r\n    // Implemente o comportamento do método anônimo aqui\r\n  });",
-    "Verificação de Usuário Autenticado": "app.MapGet(\"/authenticated\", (ClaimsPrincipal user) => {\r\n    // Implemente a lógica para retornar informações do usuário autenticado aqui\r\n  }).RequireAuthorization();",
-    "Acesso por Política de Admin e Employee": "app.MapGet(\"/manager\", (ClaimsPrincipal user) => {\r\n    // Implemente o comportamento para o acesso de um gerente (admin) aqui\r\n  }).RequireAuthorization(\"Admin\");\r\n\r\n  app.MapGet(\"/employee\", (ClaimsPrincipal user) => {\r\n    // Implemente o comportamento para o acesso de um funcionário (employee) aqui\r\n  }).RequireAuthorization(\"Employee\");"
+  "Confira o repositório do projeto no GitHub:": "https://github.com/L1malucas/JwtApi",
+  "first": {
+    "id": 1,
+    "username": "batman",
+    "password": "batman",
+    "role": "admin"
+  },
+  "second": {
+    "id": 2,
+    "username": "robin",
+    "password": "robin",
+    "role": "employee"
   }
 }
