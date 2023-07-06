@@ -1,6 +1,6 @@
 # JWT API
 
-![Imagem com logo do .net e jwt](https://github.com/L1malucas/BlazorDash/blob/main/logo.png)
+![Imagem com logo do .net, flutter e jwt](https://github.com/L1malucas/JwtApi/blob/main/logo.png?raw=true)
 
 ## Minimal API com JWT, em .NET e Flutter
 
