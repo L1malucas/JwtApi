@@ -8,7 +8,7 @@ Esta api tem propóstio de auxiliar desesenvolvedores que estejam estudando: aut
 
 ## Ferramentas
 
-- [Flutter 3.10](https://flutter.dev/) - Framework mobile multiplataforma, construído com Dart.
+- [Flutter 3.10](https://flutter.dev/) - Framework multiplataforma, construído com Dart.
 - [.NET 7.0.8](https://dotnet.microsoft.com/pt-br/download) - Gratuito. Multiplataforma. Código aberto.
 - [JWT](https://jwt.io/) - Padrão da Internet para a criação de dados com assinatura opcional e/ou criptografia.
 
@@ -237,7 +237,7 @@ Para corrigir um bug ou aprimorar um módulo existente, siga estes passos:
 - Faça o push para o branch (`git push origin improve-feature`)
 - Crie uma Pull Request
 
-#### Bug / Solicitação de Funcionalidadet
+#### Bug / Solicitação de Funcionalidades
 
 Se você encontrar um bug, por favor, abra uma issue [aqui](https://github.com/L1malucas/JwtApi/issues) incluindo sua consulta de pesquisa e o resultado esperado.
 
@@ -249,4 +249,4 @@ Se você gostaria de solicitar uma nova função, sinta-se à vontade para fazê
 
 ## License
 
-[MIT ©](https://github.com/L1malucas/JwtApi/blob/main/LICENSE.md)
+[MIT ©](https://github.com/L1malucas/JwtApi/blob/main/LICENSE)
